@@ -120,6 +120,12 @@ class GenrelistTest < Test::Unit::TestCase
     assert_equal "Zouk", sorted.last.name
   end
 
+  def test_genre_to_s
+    genre = @list.first
+
+    assert_equal genre.name, genre.to_s
+  end
+
 end
 
 

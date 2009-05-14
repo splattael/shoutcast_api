@@ -18,17 +18,41 @@ module Shoutcast
   # Delegate module methods to +Fetcher+.
   def_delegators :Fetcher, :genres, :search
 
+  # Talks to shoutcast.com.
   class Fetcher
     include HTTParty
     base_uri "http://yp.shoutcast.com"
     format :plain
 
+    # Fetch all genres defined at shoutcast.com.
+    #
+    # === Usage
+    #
+    #   Fetcher.genres.each do |genre|
+    #     p genre.name
+    #   end
+    #
+    # See Genrelist or Genre
+    #
     def self.genres
       fetch do |xml|
         Genrelist.from_xml xml
       end
     end
 
+    # Search for available stations.
+    #
+    # === Usage
+    #
+    #   Fetcher.search(:name => "California", :br => 128, :mt => "audio/mpeg")
+    #
+    # === Search options
+    #
+    # * <tt>:name</tt> - Match station +name+
+    # * <tt>:br</tt>   - Match +bitrate+
+    # * <tt>:mt</tt>   - Match +media_type+
+    #
+    # See Stationlist or Station
     def self.search(options={})
       fetch(options) do |xml|
         Stationlist.from_xml xml
@@ -37,7 +61,7 @@ module Shoutcast
 
     private
 
-    def self.fetch(options={}, &block)
+    def self.fetch(options={}, &block) # :nodoc:
       options.update(:nocache => Time.now.to_f)  if options
       data = get("/sbin/newxml.phtml", :query => options).body
 
@@ -47,6 +71,7 @@ module Shoutcast
 
   # XML
 
+  # Helper module. Include ROXML and defines some helper methods.
   module Xml
     def self.included(base)
       base.send(:include, ROXML)
@@ -54,12 +79,16 @@ module Shoutcast
     end
 
     module ClassMethods
+      # Removes useless whitespaces.
       def trim
         proc { |v| v.to_s.strip.squeeze(" ") }
       end
     end
   end
 
+  # Defines a shoutcast station.
+  #
+  # See Stationlist
   class Station
     include Xml
     # <station
@@ -70,6 +99,8 @@ module Shoutcast
     #   genre="METAL"
     #   ct="TITLE"
     #   lc="24"/>
+
+    # URL ready to tune in.
     attr_accessor :tunein
 
     xml_reader :id,             :from => :attr, :as => Integer
@@ -80,10 +111,13 @@ module Shoutcast
     xml_reader :current_title,  :from => '@ct', &trim
     xml_reader :listeners,      :from => '@lc', :as => Integer
 
+    # Get last part of +media_type+.
+    # Exmplae: <i>mpeg</i> for <i>audio/mpeg</i>
     def type
       media_type.split('/').last || media_type
     end
 
+    # String representation of this station
     def to_s
       "#%10d %3d %40s %7d %50s" % [ id, bitrate, name[0...40], listeners, current_title[0...50] ]
     end
@@ -92,6 +126,7 @@ module Shoutcast
       "%11s %3s %-40s %7s %50s" % %w(id bit station-name listen. title)
     end
 
+    # Compare by +listaners+ and +id+
     def <=>(other)
       result = listeners <=> other.listeners
       result = id <=> other.id  if result.zero?
@@ -99,6 +134,9 @@ module Shoutcast
     end
   end
 
+  # ist of stastons. Behaves like Array.
+  #
+  # See Station
   class Stationlist
     include Xml
     extend Forwardable
@@ -107,7 +145,6 @@ module Shoutcast
 
     # <tunein base="/sbin/tunein-station.pls"/>
     # <station... /> <station .../>
-
     xml_reader :tunein_base_path, :from => '@base', :in => 'tunein'
     xml_attr :stations, :as => [ Station ]
 
@@ -116,27 +153,39 @@ module Shoutcast
     end
     self.base_uri = Fetcher.base_uri
 
+    # Returns url ready to tune in.
     def tunein(station)
       "#{self.class.base_uri}#{tunein_base_path}?id=#{station.id}"
     end
 
     private
 
-    def after_parse
+    # ROXML hook
+    def after_parse # :nodoc:
       each { |station| station.tunein = tunein(station) }
     end
   end
 
+  # A music genre.
   class Genre
     include Xml
     # <genre name="24h"/>
     xml_reader :name, :from => :attr
 
+    # Compare by +name+
     def <=>(other)
       name <=> other.name
     end
+
+    # String representation of this station
+    def to_s
+      name
+    end
   end
 
+  # List of genres. Behaves like Array.
+  #
+  # See Genre
   class Genrelist
     include Xml
     extend Forwardable
@@ -144,7 +193,6 @@ module Shoutcast
     def_delegators :@genres, *(Array.instance_methods - instance_methods)
 
     xml_attr :genres, :as => [ Genre ]
-
   end
 
 end

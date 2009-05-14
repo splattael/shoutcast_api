@@ -20,12 +20,14 @@ Uses httparty and roxml for fetch and parsing data from http://yp.shoutcast.com/
 
 == Command line
 
-  ruby -rubygems lib/shoutcast_api.rb # Genres
+  shoutcast_api lib/shoutcast_api.rb # Genres
 
-  ruby -rubygems lib/shoutcast_api.rb name=Chronix
-  ruby -rubygems lib/shoutcast_api.rb genre=metal
+  shoutcast_api name=Chronix
+  shoutcast_api genre=metal br=128 mt=audio/mpeg
+
+== Authors
+ * Peter Suschlik
 
 == TODO
 
-* Docs!
 * command line options transformations
