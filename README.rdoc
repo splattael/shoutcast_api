@@ -1,0 +1,34 @@
+= Shoutcast API
+
+Simple API for http://shoutcast.com.
+Uses httparty and roxml for fetch and parsing data from http://yp.shoutcast.com/sbin/newxml.phtml.
+
+== Usage
+
+  require 'shoutcast_api'
+
+  # Stations
+  Shoutcast.search(:name => "Chronix").stations.each do |station|
+    p station
+    puts station.tunein
+  end
+
+  Shoutcast.search(:genre => "Metal")
+
+  # Genres
+  Shoutcast.genres # => all genres
+  Shoutcast.genres /op/ # => genres which match "op"
+
+== Command line
+
+  ruby -rubygems lib/shoutcast_api.rb # Genres
+
+  ruby -rubygems lib/shoutcast_api.rb name=Chronix
+  ruby -rubygems lib/shoutcast_api.rb genre=metal
+
+== TODO
+
+* Tests!
+* Docs!
+* command line options transformations 
+* handle empty responses like search(:search => "")
