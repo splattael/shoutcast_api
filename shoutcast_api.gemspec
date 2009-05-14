@@ -4,18 +4,16 @@ Gem::Specification.new do |s|
   s.name = %q{shoutcast_api}
   s.version = "0.0.1"
 
-  s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
+  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Peter Suschlik"]
   s.date = %q{2009-05-14}
-  s.description = %q{Simple Shoutcast.com API.}
   s.email = %q{peter-scapi@suschlik.de}
-  s.extra_rdoc_files = ["lib/shoutcast_api.rb", "README.rdoc"]
-  s.files = ["lib/shoutcast_api.rb", "Rakefile", "README.rdoc", "Manifest", "shoutcast_api.gemspec"]
+  s.extra_rdoc_files = ["README.rdoc"]
+  s.files = ["README.rdoc"]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/splattael/shoutcast_api}
-  s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Shoutcast_api", "--main", "README.rdoc"]
+  s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = %q{shoutcast_api}
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{Simple Shoutcast.com API.}
 

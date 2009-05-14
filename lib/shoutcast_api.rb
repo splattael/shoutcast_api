@@ -6,7 +6,7 @@ module Shoutcast
   extend Forwardable
   extend self
 
-  def_delegators :Fetcher, :genre, :search
+  def_delegators :Fetcher, :genres, :search
 
   class Fetcher
     include HTTParty
