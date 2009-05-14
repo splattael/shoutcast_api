@@ -13,21 +13,25 @@ module Shoutcast
     base_uri 'http://yp.shoutcast.com/sbin/newxml.phtml'
     format :plain
 
-    def self.genres(filter=nil)
-      list = Genrelist.from_xml fetch
-
-      list.filter(filter)
+    def self.genres
+      fetch do |xml|
+        Genrelist.from_xml xml
+      end
     end
 
     def self.search(options={})
-      Stationlist.from_xml fetch(options)
+      fetch(options) do |xml|
+        Stationlist.from_xml xml
+      end
     end
 
     private
 
-    def self.fetch(options={})
-      options.update(:nocache => Time.now.to_f)
-      get('', :query => options).body
+    def self.fetch(options={}, &block)
+      options.update(:nocache => Time.now.to_f)  if options
+      data = get('', :query => options).body
+
+      block.call(data)  unless data.empty?
     end
   end
 
@@ -109,17 +113,6 @@ module Shoutcast
 
   class Genrelist < Base
     xml_reader :genres, :as => [ Genre ]
-
-    def filter(option=nil)
-      case option
-      when String
-        genres.select { |genre| genre.name == option }
-      when Regexp
-        genres.select { |genre| genre.name =~ option }
-      else
-        genres
-      end
-    end
   end
 
 end

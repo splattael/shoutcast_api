@@ -64,6 +64,7 @@ class StationTest < Test::Unit::TestCase
 
 end
 
+
 class StationlistTest < Test::Unit::TestCase
   include Shoutcast
 
@@ -106,16 +107,6 @@ class GenrelistTest < Test::Unit::TestCase
     assert_instance_of Array, @list.genres
     assert_equal 434, @list.genres.size
     assert_instance_of Genre, @list.genres.first
-  end
-
-  def test_filter
-    assert_equal @list.genres, @list.filter
-
-    assert_equal 1, @list.filter("Rock").size
-    assert_equal "Rock", @list.filter("Rock").first.name
-
-    assert_equal 13, @list.filter(/op/).size
-    assert_equal "Autopilot", @list.filter(/op/).first.name
   end
 
   def test_genre_name
