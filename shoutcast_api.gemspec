@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{shoutcast_api}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Peter Suschlik"]
@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
   s.description = %q{Simple Shoutcast.com API.}
   s.email = %q{peter-scapi@suschlik.de}
   s.executables = ["shoutcast_search"]
-  s.extra_rdoc_files = ["bin/shoutcast_search", "lib/delegator.rb", "lib/shoutcast_api.rb", "README.rdoc"]
-  s.files = ["Rakefile", "bin/shoutcast_search", "lib/delegator.rb", "lib/shoutcast_api.rb", "README.rdoc", "Manifest", "test/test_xml.rb", "test/helper.rb", "test/test_fetcher.rb", "test/fixtures/genrelist.plain", "test/fixtures/search_death.plain", "test/fixtures/empty.plain", "test/test_basic.rb", "test/test_delegator.rb", "shoutcast_api.gemspec"]
+  s.extra_rdoc_files = ["bin/shoutcast_search", "lib/shoutcast_api.rb", "README.rdoc"]
+  s.files = ["Rakefile", "bin/shoutcast_search", "lib/shoutcast_api.rb", "README.rdoc", "Manifest", "test/test_xml.rb", "test/helper.rb", "test/test_fetcher.rb", "test/fixtures/genrelist.plain", "test/fixtures/search_death.plain", "test/fixtures/empty.plain", "test/test_basic.rb", "shoutcast_api.gemspec"]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/splattael/shoutcast_api}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Shoutcast_api", "--main", "README.rdoc"]
@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = %q{shoutcast_api}
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{Simple Shoutcast.com API.}
-  s.test_files = ["test/test_xml.rb", "test/test_fetcher.rb", "test/test_basic.rb", "test/test_delegator.rb"]
+  s.test_files = ["test/test_xml.rb", "test/test_fetcher.rb", "test/test_basic.rb"]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION

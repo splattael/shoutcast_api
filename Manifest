@@ -1,6 +1,5 @@
 Rakefile
 bin/shoutcast_search
-lib/delegator.rb
 lib/shoutcast_api.rb
 README.rdoc
 Manifest
@@ -11,5 +10,4 @@ test/fixtures/genrelist.plain
 test/fixtures/search_death.plain
 test/fixtures/empty.plain
 test/test_basic.rb
-test/test_delegator.rb
 shoutcast_api.gemspec

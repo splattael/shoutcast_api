@@ -2,12 +2,20 @@ require 'httparty'
 require 'roxml'
 require 'forwardable'
 
-require 'delegator'
-
+#
+# Simple API for http://shoutcast.com.
+#
+# === Usage
+#
+#   Shoutcast.genres # => Genrelist
+#
+#   Shoutcast.search(:search => "Metal", :br => 128) # => Stationlist
 module Shoutcast
+
   extend Forwardable
   extend self
 
+  # Delegate module methods to +Fetcher+.
   def_delegators :Fetcher, :genres, :search
 
   class Fetcher
@@ -93,9 +101,9 @@ module Shoutcast
 
   class Stationlist
     include Xml
-    include Delegator
+    extend Forwardable
 
-    delegate_all :@stations, Array
+    def_delegators :@stations, *(Array.instance_methods - instance_methods)
 
     # <tunein base="/sbin/tunein-station.pls"/>
     # <station... /> <station .../>
@@ -131,9 +139,9 @@ module Shoutcast
 
   class Genrelist
     include Xml
-    include Delegator
+    extend Forwardable
 
-    delegate_all :@genres, Array
+    def_delegators :@genres, *(Array.instance_methods - instance_methods)
 
     xml_attr :genres, :as => [ Genre ]
 
