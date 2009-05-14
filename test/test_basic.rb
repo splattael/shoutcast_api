@@ -13,12 +13,3 @@ class ExtensionsTest < Test::Unit::TestCase
   end
 
 end
-
-class ShoutcastTest < Test::Unit::TestCase
-
-  def test_delegators
-    assert_respond_to Shoutcast, :genres
-    assert_respond_to Shoutcast, :search
-  end
-
-end
