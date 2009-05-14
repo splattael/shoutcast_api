@@ -1,8 +1,10 @@
 module Shoutcast
 
   # Delegates methods via Forwardable.
+  # See +delegate_all+ for examples.
   module Delegator
-    def self.included(base)
+
+    def self.included(base) # :nodoc:
       base.extend ClassMethods
     end
 
@@ -11,8 +13,13 @@ module Shoutcast
       #
       # === Usage
       #   class ArrayMimic < SomeInheritance
+      #     include Shoutcast::Delegator
       #
       #     delegate_all :@array, Array
+      #
+      #     def initialize
+      #       @array = []
+      #     end
       #
       #   end
       #
