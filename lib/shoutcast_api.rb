@@ -120,28 +120,3 @@ module Shoutcast
   end
 
 end
-
-if $0 == __FILE__
-  require 'pp'
-
-  if ARGV.size > 0
-    options = ARGV.inject({}) do |hash, arg|
-      key, value = arg.split(/=/)
-      hash[key.intern] = value
-      hash
-    end
-    # TODO do more transformations
-    # br -> bitrate
-    # ct -> current_title
-    # can ROXML help us?
-    options[:search] = options.delete(:name) if options[:name]
-
-    puts Shoutcast::Station.header
-    Shoutcast.search(options).stations.sort.reverse.each do |station|
-      puts station
-    end
-  else
-    pp Shoutcast.genres
-  end
-
-end
