@@ -30,5 +30,5 @@ Uses httparty and roxml for fetch and parsing data from http://yp.shoutcast.com/
 
 * Tests!
 * Docs!
-* command line options transformations 
+* command line options transformations
 * handle empty responses like search(:search => "")

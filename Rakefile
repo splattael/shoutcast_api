@@ -20,3 +20,8 @@ task :ctags do
   dirs = $LOAD_PATH.select {|path| File.directory?(path) }
   system "ctags -R #{dirs.join(" ")}"
 end
+
+desc "Find whitespace at line ends"
+task :eol do
+  system "grep -rE ' +$' *"
+end
