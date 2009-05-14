@@ -8,7 +8,7 @@ Uses httparty and roxml for fetch and parsing data from http://yp.shoutcast.com/
   require 'shoutcast_api'
 
   # Stations
-  Shoutcast.search(:name => "Chronix").stations.each do |station|
+  Shoutcast.search(:name => "Chronix").each do |station|
     p station
     puts station.tunein
   end
