@@ -17,7 +17,6 @@ Uses httparty and roxml for fetch and parsing data from http://yp.shoutcast.com/
 
   # Genres
   Shoutcast.genres # => all genres
-  Shoutcast.genres /op/ # => genres which match "op"
 
 == Command line
 
@@ -28,7 +27,5 @@ Uses httparty and roxml for fetch and parsing data from http://yp.shoutcast.com/
 
 == TODO
 
-* Tests!
 * Docs!
 * command line options transformations
-* handle empty responses like search(:search => "")
