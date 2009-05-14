@@ -1,5 +1,12 @@
-lib/shoutcast_api.rb
 Rakefile
+lib/shoutcast_api.rb
 README.rdoc
 Manifest
+test/test_xml.rb
+test/helper.rb
+test/test_fetcher.rb
+test/fixtures/genrelist.plain
+test/fixtures/search_death.plain
+test/fixtures/empty.plain
+test/test_basic.rb
 shoutcast_api.gemspec
