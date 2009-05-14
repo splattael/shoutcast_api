@@ -1,26 +1,34 @@
 require 'httparty'
 require 'roxml'
+require 'forwardable'
 
-class Shoutcast
-  include HTTParty
-  base_uri 'http://yp.shoutcast.com/sbin/newxml.phtml'
-  format :plain
+module Shoutcast
+  extend Forwardable
+  extend self
 
-  def self.genres(filter=nil)
-    list = Genrelist.from_xml fetch
+  def_delegators :Fetcher, :genre, :search
 
-    list.filter(filter)
-  end
+  class Fetcher
+    include HTTParty
+    base_uri 'http://yp.shoutcast.com/sbin/newxml.phtml'
+    format :plain
 
-  def self.search(options={})
-    Stationlist.from_xml fetch(options)
-  end
+    def self.genres(filter=nil)
+      list = Genrelist.from_xml fetch
 
-  private
+      list.filter(filter)
+    end
 
-  def self.fetch(options={})
-    options.update(:nocache => Time.now.to_f)
-    get('', :query => options).body
+    def self.search(options={})
+      Stationlist.from_xml fetch(options)
+    end
+
+    private
+
+    def self.fetch(options={})
+      options.update(:nocache => Time.now.to_f)
+      get('', :query => options).body
+    end
   end
 
   # XML
@@ -34,6 +42,14 @@ class Shoutcast
   end
 
   class Station < Base
+    # <station
+    #   id="423873"
+    #   name="www.deathmetal.at"
+    #   mt="audio/mpeg"
+    #   br="128"
+    #   genre="METAL"
+    #   ct="TITLE"
+    #   lc="24"/>
     attr_accessor :tunein
 
     xml_reader :id,             :from => :attr, :as => Integer
@@ -64,6 +80,8 @@ class Shoutcast
   end
 
   class Stationlist < Base
+    # <tunein base="/sbin/tunein-station.pls"/>
+    # <station... /> <station .../>
     BASE_URL = "http://yp.shoutcast.com"
 
     xml_reader :tunein_base_path, :from => '@base', :in => 'tunein'
@@ -81,6 +99,7 @@ class Shoutcast
   end
 
   class Genre < Base
+    # <genre name="24h"/>
     xml_reader :name, :from => :attr
 
     def <=>(other)
