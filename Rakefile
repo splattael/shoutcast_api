@@ -13,6 +13,7 @@ Echoe.new('shoutcast_api') do |gem|
   gem.email = 'peter-scapi@suschlik.de'
   gem.url = %q{http://github.com/splattael/shoutcast_api}
   gem.runtime_dependencies = [ "httparty ~>0.4", "roxml ~>2.5" ]
+  gem.ignore_pattern = ["tags"]
 end
 
 desc "Tag files for vim"
