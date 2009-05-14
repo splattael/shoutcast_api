@@ -23,5 +23,5 @@ end
 
 desc "Find whitespace at line ends"
 task :eol do
-  system "grep -rE ' +$' *"
+  system "grep -nrE ' +$' *"
 end

@@ -10,7 +10,7 @@ module Shoutcast
 
   class Fetcher
     include HTTParty
-    base_uri 'http://yp.shoutcast.com/sbin/newxml.phtml'
+    base_uri "http://yp.shoutcast.com"
     format :plain
 
     def self.genres
@@ -29,7 +29,7 @@ module Shoutcast
 
     def self.fetch(options={}, &block)
       options.update(:nocache => Time.now.to_f)  if options
-      data = get('', :query => options).body
+      data = get("/sbin/newxml.phtml", :query => options).body
 
       block.call(data)  unless data.empty?
     end
@@ -37,15 +37,15 @@ module Shoutcast
 
   # XML
 
-  class Base
+  class Data
     include ROXML
 
     def self.trim
-      proc { |v| v.to_s.strip }
+      proc { |v| v.to_s.strip.squeeze(" ") }
     end
   end
 
-  class Station < Base
+  class Station < Data
     # <station
     #   id="423873"
     #   name="www.deathmetal.at"
@@ -83,16 +83,20 @@ module Shoutcast
     end
   end
 
-  class Stationlist < Base
+  class Stationlist < Data
     # <tunein base="/sbin/tunein-station.pls"/>
     # <station... /> <station .../>
-    BASE_URL = "http://yp.shoutcast.com"
 
     xml_reader :tunein_base_path, :from => '@base', :in => 'tunein'
     xml_reader :stations, :as => [ Station ]
 
+    class << self
+      attr_accessor :base_uri
+    end
+    self.base_uri = Fetcher.base_uri
+
     def tunein(station)
-      "#{BASE_URL}#{tunein_base_path}?id=#{station.id}"
+      "#{self.class.base_uri}#{tunein_base_path}?id=#{station.id}"
     end
 
     private
@@ -102,7 +106,7 @@ module Shoutcast
     end
   end
 
-  class Genre < Base
+  class Genre < Data
     # <genre name="24h"/>
     xml_reader :name, :from => :attr
 
@@ -111,7 +115,7 @@ module Shoutcast
     end
   end
 
-  class Genrelist < Base
+  class Genrelist < Data
     xml_reader :genres, :as => [ Genre ]
   end
 

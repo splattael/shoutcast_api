@@ -3,6 +3,10 @@ require File.join(File.dirname(__FILE__), 'helper')
 class FetcherTest < Test::Unit::TestCase
   include Shoutcast
 
+  def test_base_uri
+    assert_equal "http://yp.shoutcast.com", Stationlist.base_uri
+  end
+
   def test_genres_list
     stub_http_response_with("genrelist.plain")
 

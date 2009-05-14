@@ -80,6 +80,10 @@ class StationlistTest < Test::Unit::TestCase
     assert_instance_of Station, @list.stations.first
   end
 
+  def test_base_uri
+    assert_equal "http://yp.shoutcast.com", Stationlist.base_uri
+  end
+
   def test_tunein
     station = @list.stations.first
 
@@ -114,6 +118,19 @@ class GenrelistTest < Test::Unit::TestCase
 
     assert_equal "24h", sorted.first.name
     assert_equal "Zouk", sorted.last.name
+  end
+
+end
+
+
+class DataTest < Test::Unit::TestCase
+  include Shoutcast
+
+  def test_trim
+    assert_respond_to Data, :trim
+
+    string = "  test mee   "
+    assert_equal "test mee", Data.trim.call(string)
   end
 
 end
