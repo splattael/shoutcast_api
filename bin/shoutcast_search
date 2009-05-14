@@ -17,10 +17,10 @@ if ARGV.size > 0
   options[:search] = options.delete(:name) if options[:name]
 
   puts Shoutcast::Station.header
-  Shoutcast.search(options).stations.sort.reverse.each do |station|
+  Shoutcast.search(options).sort.reverse.each do |station|
     puts station
   end
 else
-  puts "Genres: ", Shoutcast.genres.genres.map { |g| g.name }.join(", ")
+  puts "Genres: ", Shoutcast.genres.map { |g| g.name }.join(", ")
 end
 

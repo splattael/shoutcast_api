@@ -13,8 +13,7 @@ class FetcherTest < Test::Unit::TestCase
     list = Fetcher.genres
     # DRY test/text_xml.rb GenrelistTest
     assert_instance_of Genrelist, list
-    assert_instance_of Array, list.genres
-    assert_instance_of Genre, list.genres.first
+    assert_instance_of Genre, list.first
   end
 
   def test_genres_empty_response
@@ -30,8 +29,7 @@ class FetcherTest < Test::Unit::TestCase
     # DRY test/text_xml.rb StationlistTest
     assert_instance_of Stationlist, list
     assert_equal "/sbin/tunein-station.pls", list.tunein_base_path
-    assert_instance_of Array, list.stations
-    assert_instance_of Station, list.stations.first
+    assert_instance_of Station, list.first
   end
 
   def test_search_empty_response

@@ -2,6 +2,8 @@ require 'httparty'
 require 'roxml'
 require 'forwardable'
 
+require 'delegator'
+
 module Shoutcast
   extend Forwardable
   extend self
@@ -37,15 +39,21 @@ module Shoutcast
 
   # XML
 
-  class Data
-    include ROXML
+  module Xml
+    def self.included(base)
+      base.send(:include, ROXML)
+      base.extend ClassMethods
+    end
 
-    def self.trim
-      proc { |v| v.to_s.strip.squeeze(" ") }
+    module ClassMethods
+      def trim
+        proc { |v| v.to_s.strip.squeeze(" ") }
+      end
     end
   end
 
-  class Station < Data
+  class Station
+    include Xml
     # <station
     #   id="423873"
     #   name="www.deathmetal.at"
@@ -83,12 +91,17 @@ module Shoutcast
     end
   end
 
-  class Stationlist < Data
+  class Stationlist
+    include Xml
+    include Delegator
+
+    delegate_all :@stations, Array
+
     # <tunein base="/sbin/tunein-station.pls"/>
     # <station... /> <station .../>
 
     xml_reader :tunein_base_path, :from => '@base', :in => 'tunein'
-    xml_reader :stations, :as => [ Station ]
+    xml_attr :stations, :as => [ Station ]
 
     class << self
       attr_accessor :base_uri
@@ -102,11 +115,12 @@ module Shoutcast
     private
 
     def after_parse
-      stations.each { |station| station.tunein = tunein(station) }
+      each { |station| station.tunein = tunein(station) }
     end
   end
 
-  class Genre < Data
+  class Genre
+    include Xml
     # <genre name="24h"/>
     xml_reader :name, :from => :attr
 
@@ -115,8 +129,14 @@ module Shoutcast
     end
   end
 
-  class Genrelist < Data
-    xml_reader :genres, :as => [ Genre ]
+  class Genrelist
+    include Xml
+    include Delegator
+
+    delegate_all :@genres, Array
+
+    xml_attr :genres, :as => [ Genre ]
+
   end
 
 end

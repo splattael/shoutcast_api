@@ -75,9 +75,8 @@ class StationlistTest < Test::Unit::TestCase
   def test_attributes
     assert_instance_of Stationlist, @list
     assert_equal "/sbin/tunein-station.pls", @list.tunein_base_path
-    assert_instance_of Array, @list.stations
-    assert_equal 49, @list.stations.size
-    assert_instance_of Station, @list.stations.first
+    assert_equal 49, @list.size
+    assert_instance_of Station, @list.first
   end
 
   def test_base_uri
@@ -85,13 +84,13 @@ class StationlistTest < Test::Unit::TestCase
   end
 
   def test_tunein
-    station = @list.stations.first
+    station = @list.first
 
     assert_equal "http://yp.shoutcast.com/sbin/tunein-station.pls?id=#{station.id}", @list.tunein(station)
   end
 
   def test_tunein_propagtion_after_parse
-    station = @list.stations.first
+    station = @list.first
 
     assert_equal @list.tunein(station), station.tunein
   end
@@ -106,15 +105,16 @@ class GenrelistTest < Test::Unit::TestCase
     @list = Genrelist.from_xml file_fixture("genrelist.plain")
   end
 
-  def test_parsing
+  def test_array_mimic
     assert_instance_of Genrelist, @list
-    assert_instance_of Array, @list.genres
-    assert_equal 434, @list.genres.size
-    assert_instance_of Genre, @list.genres.first
+    assert_equal 434, @list.size
+    assert_instance_of Genre, @list.first
+    assert_respond_to @list, :each
+    assert_raise(NoMethodError) { @list.nothing_found }
   end
 
   def test_genre_name
-    sorted = @list.genres.sort
+    sorted = @list.sort
 
     assert_equal "24h", sorted.first.name
     assert_equal "Zouk", sorted.last.name
@@ -123,14 +123,17 @@ class GenrelistTest < Test::Unit::TestCase
 end
 
 
-class DataTest < Test::Unit::TestCase
-  include Shoutcast
+class MyClass
+  include Shoutcast::Xml
+end
+
+class XmlTest < Test::Unit::TestCase
 
   def test_trim
-    assert_respond_to Data, :trim
+    assert_respond_to MyClass, :trim
 
     string = "  test mee   "
-    assert_equal "test mee", Data.trim.call(string)
+    assert_equal "test mee", MyClass.trim.call(string)
   end
 
 end
