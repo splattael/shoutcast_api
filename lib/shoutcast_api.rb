@@ -62,7 +62,8 @@ module Shoutcast
     private
 
     def self.fetch(options={}, &block) # :nodoc:
-      options.update(:nocache => Time.now.to_f)  if options
+      options ||= {}
+      options.update(:nocache => Time.now.to_f) unless options.key?(:nocache)
       data = get("/sbin/newxml.phtml", :query => options).body
 
       block.call(data)  unless data.empty?
