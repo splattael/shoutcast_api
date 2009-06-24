@@ -9,7 +9,7 @@ require 'echoe'
 Echoe.new('shoutcast_api') do |gem|
   gem.version = '0.1.2'
   gem.author = 'Peter Suschlik'
-  gem.summary = 'Simple Shoutcast.com API.'
+  gem.summary = 'Simple shoutcast.com API.'
   gem.email = 'peter-scapi@suschlik.de'
   gem.url = %q{http://github.com/splattael/shoutcast_api}
   gem.runtime_dependencies = [ "httparty ~>0.4", "roxml ~>2.5" ]
