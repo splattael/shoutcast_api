@@ -18,11 +18,18 @@ Uses httparty and roxml for fetching and parsing data from http://yp.shoutcast.c
   # Genres
   Shoutcast.genres # => all genres
 
+== Install via gemcutter
+  gem install gemcutter
+  gem tumble
+  gem install shoutcast_api
+
 == Command line
 
-  shoutcast_api lib/shoutcast_api.rb # Genres
+  shoutcast_api               # List genres
 
-  shoutcast_api name=Chronix
+  shoutcast_api name=Chronix  # Search for station "Chronix"
+
+  # Search for station with genre "metal", bitrate 128 and media type "audio/mpeg"
   shoutcast_api genre=metal br=128 mt=audio/mpeg
 
 == Authors
@@ -31,3 +38,4 @@ Uses httparty and roxml for fetching and parsing data from http://yp.shoutcast.c
 == TODO
 
 * command line options transformations
+* Use mock-server for mocking API requests
