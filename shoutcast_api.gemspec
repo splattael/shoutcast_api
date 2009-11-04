@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{shoutcast_api}
-  s.version = "0.1.2"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Peter Suschlik"]
-  s.date = %q{2009-05-14}
+  s.date = %q{2009-11-04}
   s.default_executable = %q{shoutcast_search}
   s.description = %q{Simple Shoutcast.com API.}
   s.email = %q{peter-scapi@suschlik.de}
@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{shoutcast_api}
   s.rubygems_version = %q{1.3.1}
-  s.summary = %q{Simple Shoutcast.com API.}
+  s.summary = %q{Ruby API for Shoutcast.com.}
   s.test_files = ["test/test_xml.rb", "test/test_fetcher.rb", "test/test_basic.rb"]
 
   if s.respond_to? :specification_version then
