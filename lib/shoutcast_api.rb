@@ -70,8 +70,6 @@ module Shoutcast
     end
   end
 
-  # XML
-
   # Helper module. Include ROXML and defines some helper methods.
   module Xml
     def self.included(base)
@@ -80,7 +78,7 @@ module Shoutcast
     end
 
     module ClassMethods
-      # Removes useless whitespaces.
+      # Strip whitespaces.
       def trim
         proc { |v| v.to_s.strip.squeeze(" ") }
       end
@@ -113,7 +111,7 @@ module Shoutcast
     xml_reader :listeners,      :from => '@lc', :as => Integer
 
     # Get last part of +media_type+.
-    # Exmplae: <i>mpeg</i> for <i>audio/mpeg</i>
+    # Example: <i>mpeg</i> for <i>audio/mpeg</i>
     def type
       media_type.split('/').last || media_type
     end
@@ -127,7 +125,7 @@ module Shoutcast
       "%11s %3s %-40s %7s %50s" % %w(id bit station-name listen. title)
     end
 
-    # Compare by +listaners+ and +id+
+    # Compare by +listeners+ and +id+
     def <=>(other)
       result = listeners <=> other.listeners
       result = id <=> other.id  if result.zero?
@@ -135,7 +133,7 @@ module Shoutcast
     end
   end
 
-  # ist of stastons. Behaves like Array.
+  # A list of stations. Behaves like an Array.
   #
   # See Station
   class Stationlist
@@ -154,7 +152,7 @@ module Shoutcast
     end
     self.base_uri = Fetcher.base_uri
 
-    # Returns url ready to tune in.
+    # Returns an url ready to tune in.
     def tunein(station)
       "#{self.class.base_uri}#{tunein_base_path}?id=#{station.id}"
     end
@@ -184,7 +182,7 @@ module Shoutcast
     end
   end
 
-  # List of genres. Behaves like Array.
+  # A list of genres. Behaves like an Array.
   #
   # See Genre
   class Genrelist
