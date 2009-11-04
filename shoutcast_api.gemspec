@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{shoutcast_api}
+  s.name = %q{splattael-shoutcast_api}
   s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
