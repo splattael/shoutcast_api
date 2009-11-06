@@ -1,10 +1,56 @@
 require File.join(File.dirname(__FILE__), 'helper')
 
+require 'ostruct'
+class FakeResponse < OpenStruct
+  def initialize(&block)
+    super
+    block.call(self) if block
+  end
+
+  def empty?
+    false
+  end
+
+  def body
+    self
+  end
+end
+
 class FetcherTest < Test::Unit::TestCase
   include Shoutcast
 
   def test_base_uri
     assert_equal "http://yp.shoutcast.com", Stationlist.base_uri
+  end
+
+  def test_nocache_paramater
+    fetcher = Fetcher.clone
+
+    def fetcher.get(path, options)
+      FakeResponse.new do |response|
+        response.options = options
+      end
+    end
+
+    # {}
+    response = fetcher.send(:fetch) { |response| response }
+    assert response
+    assert_instance_of Hash, response.options
+    assert_instance_of Hash, response.options[:query]
+    assert response.options[:query][:nocache]
+
+    # { :nocache => "random" }
+    response = fetcher.send(:fetch, :nocache => "random") { |response| response }
+    assert response
+    assert_instance_of Hash, response.options
+    assert_instance_of Hash, response.options[:query]
+    assert_equal "random", response.options[:query][:nocache]
+
+    # nil
+    response = fetcher.send(:fetch, nil) { |response| response }
+    assert_instance_of Hash, response.options
+    assert_instance_of Hash, response.options[:query]
+    assert response.options[:query][:nocache]
   end
 
   def test_genres_list

@@ -7,7 +7,7 @@ task :default => :test
 
 require 'echoe'
 Echoe.new('shoutcast_api') do |gem|
-  gem.version = '0.1.2'
+  gem.version = '0.1.3'
   gem.author = 'Peter Suschlik'
   gem.summary = 'Simple shoutcast.com API.'
   gem.email = 'peter-scapi@suschlik.de'
