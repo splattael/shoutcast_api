@@ -1,3 +1,4 @@
+require 'activesupport'
 require 'httparty'
 require 'roxml'
 require 'forwardable'

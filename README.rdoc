@@ -19,9 +19,16 @@ Uses httparty and roxml for fetching and parsing data from http://yp.shoutcast.c
   Shoutcast.genres # => all genres
 
 == Install via gemcutter
+
   gem install gemcutter
   gem tumble
   gem install shoutcast_api
+
+=== Test
+
+  git clone git://github.com/splattael/shoutcast_api.git
+  cd shoutcast_api
+  gem install mocha
 
 == Command line
 
@@ -37,5 +44,6 @@ Uses httparty and roxml for fetching and parsing data from http://yp.shoutcast.c
 
 == TODO
 
+* README.rdoc as main page for rdoc?!
 * command line options transformations
 * Use mock-server for mocking API requests

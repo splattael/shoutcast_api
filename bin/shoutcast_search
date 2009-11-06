@@ -9,8 +9,7 @@
 #
 #   shoutcast_search name=Chronix br=128 # => display a list of all Chronix stations with bitrate of 128
 #
-require 'rubygems'
-
+# require 'rubygems'
 require 'shoutcast_api'
 
 if ARGV.size > 0

@@ -5,17 +5,45 @@ require 'rake/rdoctask'
 desc 'Default: run unit tests.'
 task :default => :test
 
-require 'echoe'
-Echoe.new('shoutcast_api') do |gem|
-  gem.version = '0.1.3'
-  gem.author = 'Peter Suschlik'
+require 'jeweler'
+Jeweler::Tasks.new do |gem|
+  gem.name = "shoutcast_api"
   gem.summary = 'Simple shoutcast.com API.'
-  gem.email = 'peter-scapi@suschlik.de'
-  gem.url = %q{http://github.com/splattael/shoutcast_api}
-  gem.runtime_dependencies = [ "httparty ~>0.4", "roxml ~>2.5" ]
-  gem.ignore_pattern = ["tags"]
+  gem.email = "peter-scapi@suschlik.de"
+  gem.homepage = "http://github.com/splattael/shoutcast_api"
+  gem.authors = ["Peter Suschlik"]
+
+  gem.has_rdoc = true
+  gem.extra_rdoc_files = [ "README.rdoc" ]
+  
+  gem.add_dependency 'httparty', '~> 0.4'
+  gem.add_dependency 'roxml', '~> 2.5'
+
+  gem.add_development_dependency "mocha"
+
+  gem.test_files = Dir.glob('test/test_*.rb')
 end
 
+Jeweler::GemcutterTasks.new
+
+# Test
+require 'rake/testtask'
+Rake::TestTask.new(:test) do |test|
+  test.test_files = FileList.new('test/test_*.rb')
+  test.libs << 'test'
+  test.verbose = true
+end
+
+# RDoc
+Rake::RDocTask.new do |rd|
+  rd.title = "Shoutcast API"
+  rd.main = "README.rdoc"
+  rd.rdoc_files.include("README.rdoc", "lib/*.rb")
+  rd.rdoc_dir = "doc"
+end
+
+
+# Misc
 desc "Tag files for vim"
 task :ctags do
   dirs = $LOAD_PATH.select {|path| File.directory?(path) }
