@@ -20,6 +20,8 @@ Jeweler::Tasks.new do |gem|
   gem.add_dependency 'roxml', '~> 2.5'
 
   gem.add_development_dependency "mocha"
+  gem.add_development_dependency "riot", ">= 0.10.4"
+  gem.add_development_dependency "riot_notifier", ">= 0.0.3"
 
   gem.test_files = Dir.glob('test/test_*.rb')
 end

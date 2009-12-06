@@ -4,6 +4,10 @@ require 'test/unit'
 
 require 'rubygems'
 require 'mocha'
+require 'riot'
+require 'riot_notifier'
+
+Riot.reporter = RiotNotifier::Libnotify
 
 require 'shoutcast_api'
 
