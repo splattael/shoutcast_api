@@ -1,8 +1,5 @@
-$LOAD_PATH.unshift File.join(File.dirname(__FILE__), "..", "lib")
-
-require 'test/unit'
-
 require 'rubygems'
+
 require 'mocha'
 require 'riot'
 require 'riot_notifier'
@@ -30,4 +27,5 @@ module TestExtensions
   end
 end
 
-Test::Unit::TestCase.send(:include, TestExtensions)
+Riot::Context.send :include, TestExtensions
+Riot::Situation.send :include, TestExtensions
