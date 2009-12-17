@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{shoutcast_api}
-  s.version = "0.1.4"
+  s.version = "0.1.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Peter Suschlik"]
-  s.date = %q{2009-11-06}
+  s.date = %q{2009-12-17}
   s.default_executable = %q{shoutcast_search}
   s.email = %q{peter-scapi@suschlik.de}
   s.executables = ["shoutcast_search"]
@@ -18,9 +18,10 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".gitignore",
+     ".watchr",
      "README.rdoc",
      "Rakefile",
-     "VERSION.yml",
+     "VERSION",
      "bin/shoutcast_search",
      "lib/shoutcast_api.rb",
      "shoutcast_api.gemspec",
@@ -38,10 +39,9 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Simple shoutcast.com API.}
   s.test_files = [
-    "test/test_xml.rb",
-     "test/test_fetcher.rb",
-     "test/helper.rb",
-     "test/test_basic.rb"
+    "test/test_fetcher.rb",
+     "test/test_basic.rb",
+     "test/test_xml.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -51,13 +51,22 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<httparty>, ["~> 0.4"])
       s.add_runtime_dependency(%q<roxml>, ["~> 2.5"])
+      s.add_development_dependency(%q<mocha>, [">= 0"])
+      s.add_development_dependency(%q<riot>, [">= 0"])
+      s.add_development_dependency(%q<riot_notifier>, ["= 0.0.7"])
     else
       s.add_dependency(%q<httparty>, ["~> 0.4"])
       s.add_dependency(%q<roxml>, ["~> 2.5"])
+      s.add_dependency(%q<mocha>, [">= 0"])
+      s.add_dependency(%q<riot>, [">= 0"])
+      s.add_dependency(%q<riot_notifier>, ["= 0.0.7"])
     end
   else
     s.add_dependency(%q<httparty>, ["~> 0.4"])
     s.add_dependency(%q<roxml>, ["~> 2.5"])
+    s.add_dependency(%q<mocha>, [">= 0"])
+    s.add_dependency(%q<riot>, [">= 0"])
+    s.add_dependency(%q<riot_notifier>, ["= 0.0.7"])
   end
 end
 
