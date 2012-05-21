@@ -20,22 +20,22 @@ Uses httparty and roxml for fetching and parsing data from http://yp.shoutcast.c
 
 ## Install
 
-  gem install shoutcast_api
+    gem install shoutcast_api
 
 ### Test
 
-  git clone git://github.com/splattael/shoutcast_api.git
-  cd shoutcast_api
-  bundle
+    git clone git://github.com/splattael/shoutcast_api.git
+    cd shoutcast_api
+    bundle
 
 ## Command line
 
-  shoutcast_api               # List genres
+    shoutcast_api               # List genres
 
-  shoutcast_api name=Chronix  # Search for station "Chronix"
+    shoutcast_api name=Chronix  # Search for station "Chronix"
 
-  # Search for station with genre "metal", bitrate 128 and media type "audio/mpeg"
-  shoutcast_api genre=metal br=128 mt=audio/mpeg
+    # Search for station with genre "metal", bitrate 128 and media type "audio/mpeg"
+    shoutcast_api genre=metal br=128 mt=audio/mpeg
 
 ## Authors
 
