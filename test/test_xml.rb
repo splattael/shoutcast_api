@@ -16,7 +16,7 @@ context Station do
     XML
   end
 
-  asserts("class type").kind_of(Station)
+  asserts_topic("class type").kind_of(Station)
   asserts("id") { topic.id }.equals(1234)
   asserts("name") { topic.name }.equals("Metal radio")
   asserts("media type") { topic.media_type }.equals("audio/mpeg")
@@ -57,15 +57,15 @@ context Stationlist do
   setup { Stationlist.from_xml file_fixture("search_death.plain") }
 
   asserts("base uri") { topic.class.base_uri }.equals("http://yp.shoutcast.com")
-  asserts("correct class type").kind_of(Stationlist)
+  asserts_topic("correct class type").kind_of(Stationlist)
   asserts("tunein path") { topic.tunein_base_path }.equals("/sbin/tunein-station.pls")
   asserts("list size") { topic.size }.equals(49)
   asserts("tunein path") { topic.tunein(topic.first) }.equals { topic.first.tunein }
 
   context "for first item" do
     setup { topic.first }
-    asserts("correct class type").kind_of(Station)
-    asserts("tunein path") do 
+    asserts_topic("correct class type").kind_of(Station)
+    asserts("tunein path") do
       topic.tunein
     end.equals { "http://yp.shoutcast.com/sbin/tunein-station.pls?id=#{topic.id}" }
   end
@@ -74,10 +74,10 @@ end
 context Genrelist do
   setup { Genrelist.from_xml file_fixture("genrelist.plain") }
 
-  asserts("correct class type").kind_of(Genrelist)
+  asserts_topic("correct class type").kind_of(Genrelist)
   asserts("list size") { topic.size }.equals(434)
   asserts("first item is Genre") { topic.first }.kind_of(Genre)
-  asserts("responds to each").respond_to(:each)
+  asserts_topic("responds to each").respond_to(:each)
   asserts("raises NoMethodError on invalid method") { topic.invalid_method }.raises(NoMethodError)
   asserts("gernes name == to_s") { topic.first.name }.equals { topic.first.to_s }
 
@@ -96,6 +96,6 @@ context Xml do
     end
   end
 
-  asserts("responds to trim").respond_to(:trim)
+  asserts_topic("responds to trim").respond_to(:trim)
   asserts("trims strings") { topic.trim.call(" trim me ") }.equals("trim me")
 end

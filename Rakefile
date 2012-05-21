@@ -1,34 +1,14 @@
+#!/usr/bin/env rake
+
 require 'rake'
 require 'rake/testtask'
-require 'rake/rdoctask'
+require 'rdoc/task'
+
+require "bundler/gem_tasks"
 
 desc 'Default: run unit tests.'
 task :default => :test
 
-require 'jeweler'
-Jeweler::Tasks.new do |gem|
-  gem.name = "shoutcast_api"
-  gem.summary = 'Simple shoutcast.com API.'
-  gem.email = "peter-scapi@suschlik.de"
-  gem.homepage = "http://github.com/splattael/shoutcast_api"
-  gem.authors = ["Peter Suschlik"]
-
-  gem.has_rdoc = true
-  gem.extra_rdoc_files = [ "README.rdoc" ]
-  
-  gem.add_dependency 'httparty', '~> 0.4'
-  gem.add_dependency 'roxml', '~> 2.5'
-
-  gem.add_development_dependency "mocha"
-  gem.add_development_dependency "riot"
-  gem.add_development_dependency "riot_notifier", "= 0.0.7"
-
-  gem.test_files = Dir.glob('test/test_*.rb')
-end
-
-Jeweler::GemcutterTasks.new
-
-# Test
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
   test.test_files = FileList.new('test/test_*.rb')

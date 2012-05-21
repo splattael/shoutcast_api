@@ -9,8 +9,8 @@ end
 
 context "Extensions" do
   asserts("empty body with empty file") { file_fixture("empty.plain") }.equals("")
-  asserts("http stubbing") do
-    stub_http_response_with("empty.plain")
-    HTTParty.get('').body
-  end.equals("")
+  #asserts("http stubbing") do
+  #  stub_http_response_with("empty.plain")
+  #  HTTParty.get('').body
+  #end.equals("")
 end
