@@ -44,5 +44,4 @@ Uses httparty and roxml for fetching and parsing data from http://yp.shoutcast.c
 ## TODO
 
 * Use fakeweb for mocking http requests
-* README.md as main page for rdoc?!
 * command line options transformations
