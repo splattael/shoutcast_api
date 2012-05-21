@@ -19,8 +19,8 @@ end
 # RDoc
 Rake::RDocTask.new do |rd|
   rd.title = "Shoutcast API"
-  rd.main = "README.rdoc"
-  rd.rdoc_files.include("README.rdoc", "lib/*.rb")
+  rd.main = "README.md"
+  rd.rdoc_files.include("README.md", "lib/*.rb")
   rd.rdoc_dir = "doc"
 end
 
