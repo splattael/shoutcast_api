@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["peter-scapi@suschlik.de"]
   gem.description   = %q{Simple API for shoutcast.com}
   gem.summary       = %q{Uses httparty and roxml for fetching and parsing data from http://yp.shoutcast.com/sbin/newxml.phtml}
-  gem.homepage      = "https://github.com/splattael/shoutcast_api"
+  gem.homepage      = "http://splattael.github.com/shoutcast_api/"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
