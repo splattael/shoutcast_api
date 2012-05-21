@@ -19,6 +19,8 @@ module Shoutcast
   # Delegate module methods to +Fetcher+.
   def_delegators :Fetcher, :genres, :search
 
+  USER_AGENT = "Mozilla/5.0 Chromium Chrome Safari"
+
   # Talks to shoutcast.com.
   class Fetcher
     include HTTParty
@@ -65,7 +67,7 @@ module Shoutcast
     def self.fetch(options={}, &block) # :nodoc:
       options ||= {}
       options.update(:nocache => Time.now.to_f) unless options.key?(:nocache)
-      data = get("/sbin/newxml.phtml", :query => options).body
+      data = get("/sbin/newxml.phtml", :query => options, :headers => { "User-Agent" => USER_AGENT }).body
 
       block.call(data)  unless data.empty?
     end
