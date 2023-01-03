@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Shoutcast::VERSION
 
-  gem.add_runtime_dependency 'httparty', '~> 0.8.3'
+  gem.add_runtime_dependency 'httparty', '>= 0.8.3', '< 0.22.0'
   gem.add_runtime_dependency 'roxml', '~> 3.3.1'
 
   gem.add_development_dependency 'mocha'
